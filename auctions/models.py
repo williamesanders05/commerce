@@ -18,6 +18,3 @@ class Listings(models.Model):
     categories = models.ForeignKey(Categories, related_name = "posts", null = True, on_delete = models.CASCADE)
     image = models.URLField(max_length = 1000, null = True)
     bid = models.PositiveIntegerField()
-
-    def __str__(self):
-        return self.title

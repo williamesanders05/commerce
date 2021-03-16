@@ -17,7 +17,7 @@ def index(request):
 @login_required(login_url= "login")
 def createlisting(request):
     if request.method == "POST":
-        listing = Listings(
+        listing = Listings.objects.post(
             title = request.POST['title'],
             description = request.POST['description'],
             image = request.POST['image'],
@@ -28,10 +28,17 @@ def createlisting(request):
 
         listing.save()
 
-        return HTTPResponseRedirect(reverse('index'))
+        return HttpResponseRedirect(reverse('index'))
 
     return render(request, "auctions/createlisting.html", {
         'categories': Categories.objects.all()
+    })
+
+@login_required(login_url= "login")
+def listing(request, listing_id):
+    listings = Listings.objects.get(id=listing_id)
+    return render(request, "auctions/listing.html", {
+        'listing': listings
     })
 
 def login_view(request):
