@@ -34,13 +34,6 @@ def createlisting(request):
         'categories': Categories.objects.all()
     })
 
-@login_required(login_url= "login")
-def listing(request, listing_id):
-    listings = Listings.objects.get(id=listing_id)
-    return render(request, "auctions/listing.html", {
-        'listing': listings
-    })
-
 def login_view(request):
     if request.method == "POST":
 
