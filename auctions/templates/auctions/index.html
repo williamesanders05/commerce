@@ -4,9 +4,13 @@
     <h2>Active Listings</h2>
 
     {% for listing in listings %}
-    <a href="{% url listing %}"><h4>{{ listing.title }}</h4></a>
-    <img src="{{listing.image}}" alt="image"width = "550" height = "400">
-    <h6>{{ listing.description }}</h6>
-    <h3>{{ listing.bid }}</h3>
+        <div class="card" style="width: 18rem;" id="card">
+            <img class="card-img-top" src="{{ listing.image }}" alt="Product Image">
+            <div class="card-body">
+                <h3 class="card-title">{{ listing.title }}</h3>
+                <p class="card-text">{{ listing.description }}</p>
+                <h5>${{ listing.bid }}</h5> <a href="{% url 'index' %}" class="btn btn-primary">View Product</a>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}
