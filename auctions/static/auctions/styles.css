@@ -1,11 +1,32 @@
 body {
     padding: 10px;
-    background-color: darkslategrey;
+    background-color: lightgray;
 }
 .card-text {
     max-width: 150ch;
 }
 
-#card :hover {
-    box-shadow: 50px;
+.wrapper :hover {
+    box-shadow: 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.card :hover {
+    box-shadow: none;
+}
+
+.wrapper {
+    float: left;
+    margin: 20px;
+    width: 18rem;
+    height: 25rem;
+}
+
+.card {
+    height: 25rem;
+    width: 18rem;
+}
+
+.img-wrapper {
+    width: 286px;
+    height: 214.5px;
 }
