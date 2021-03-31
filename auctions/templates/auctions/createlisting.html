@@ -4,30 +4,30 @@
     <h2>Create a Listing</h2>
 
     <form action="{% url 'createlisting' %}">
-        <div>
+        <div class="form-control">
             <label for="title">title</label>
-            <input type="text" name = "title" id = "title">
+            <input type="text" name = "title" id = "title" class="form-control">
         </div>
-        <div>
+        <div class="form-control">
             <label for="image">image</label>
-            <input type="text" name = "image" id = "image">
+            <input type="text" name = "image" id = "image" class="form-control">
         </div>
-        <div>
+        <div class="form-control">
             <label for="description">description</label>
-            <input type="text" name = "description" id = "description">
+            <input type="text" name = "description" id = "description" class="form-control">
         </div>
-        <div>
+        <div class="form-control">
             <label for="categories">categories</label>
-            <select name="categories" id="categories">
+            <select name="categories" id="categories" class="form-select">
                 {% for category in categories %}
                     <option >{{ category }}</option>
                 {% endfor %}
             </select>
         </div>
-        <div>
+        <div class="form-control">
             <label for="startingbid">starting bid</label>
-            <input type="number" name = "startingbid" id = "startingbid">
+            <input type="number" name = "startingbid" id = "startingbid" class="form-control">
         </div>
-        <input type="submit" value="submit">
+        <input type="submit" value="submit" class="btn btn-primary">
     </form>
 {% endblock %}
