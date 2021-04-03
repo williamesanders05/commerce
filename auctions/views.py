@@ -11,7 +11,8 @@ from .models import *
 
 def index(request):
     return render(request, "auctions/index.html", {
-        'listings': Listings.objects.all()
+        'listings': Listings.objects.all(),
+        'name': 'Active Listings'
     })
 
 @login_required(login_url= "login")
@@ -39,6 +40,21 @@ def listing(request, listing_id):
     listing = Listings.objects.get(id=listing_id)
     return render(request, "auctions/listing.html", {
         "listing": listing
+    })
+
+@login_required(login_url= "login")
+def categories(request):
+    categories = Categories.objects.all()
+    return render(request, "auctions/categories.html", {
+        'categories': categories
+    })
+
+@login_required(login_url= "login")
+def category(request, category_id):
+    category = Listings.objects.filter(categories=category_id)
+    return render(request, "auctions/category.html", {
+        'listings': category,
+        'name': 'category'
     })
 
 def login_view(request):
