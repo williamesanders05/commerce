@@ -8,7 +8,12 @@
     </div>
     <div class="page-wrapper">
         <h6>{{ listing.description }}</h6>
-        <h3>{{ listing.bid }}</h3>
+        <h3>${{ listing.bid }}</h3>
         <h4>{{ listing.categories }}</h4>
+        <h4>{{ listing.owner }}</h4>
+        <form action="{% url 'listing' %}">
+            <input type="number" name="bid" id="bid" min="{{ min_bid }}">
+            <input type="submit" value="place bid">
+        </form>
     </div>
 {% endblock %}

@@ -13,8 +13,9 @@ class Categories(models.Model):
 
 class Listings(models.Model):
     owner = models.CharField(max_length = 20)
+    bidder = models.CharField(max_length = 20, null = True, default = "no bidders")
     title = models.CharField(max_length = 20)
     description = models.CharField(max_length = 200, null = True)
-    categories = models.ForeignKey(Categories, related_name = "posts", null = True, on_delete = models.CASCADE)
+    categories = models.ForeignKey(Categories, on_delete=models.CASCADE, related_name="posts", null = True)
     image = models.URLField(max_length = 1000, null = True)
     bid = models.PositiveIntegerField()

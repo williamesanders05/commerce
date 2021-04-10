@@ -18,13 +18,13 @@ def index(request):
 @login_required(login_url= "login")
 def createlisting(request):
     if request.method == "POST":
-        listing = Listings.objects.Post(
+        listing = Listings(
             title = request.POST['title'],
             description = request.POST['description'],
             image = request.POST['image'],
             bid = request.POST['startingbid'],
             owner = request.user.username,
-            categories=Categories.objects.get(category=request.POST["category"])
+            categories=Categories.objects.get(category=request.POST["categories"])
         )
 
         listing.save()
@@ -39,7 +39,8 @@ def createlisting(request):
 def listing(request, listing_id):
     listing = Listings.objects.get(id=listing_id)
     return render(request, "auctions/listing.html", {
-        "listing": listing
+        "listing": listing,
+        'min_bid': listing.bid + 1
     })
 
 @login_required(login_url= "login")
