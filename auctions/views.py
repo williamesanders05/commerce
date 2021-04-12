@@ -37,6 +37,10 @@ def createlisting(request):
 
 @login_required(login_url= "login")
 def listing(request, listing_id):
+    if request.method == "POST":
+        Listings.objects.filter(id=listing_id).update(bid = request.POST['bid'])
+        Listings.objects.filter(id=listing_id).update(bidder = request.user.username)
+        return HttpResponseRedirect(reverse("listing", args=(listing_id,)))
     listing = Listings.objects.get(id=listing_id)
     return render(request, "auctions/listing.html", {
         "listing": listing,
