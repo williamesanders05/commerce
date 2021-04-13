@@ -61,6 +61,15 @@ def category(request, category_id):
         'listings': category,
     })
 
+@login_required(login_url= "login")
+def watchlistadd(request, listing_id):
+    if request.method == "POST":
+        listings = Listings.objects.get(pk=listing_id)
+        watchlist = Watchlist(user = request.user.id)
+        watchlist.listings.add(listings)
+        return HttpResponseRedirect(reverse("listing", args=(listing_id,)))
+    watchlist = Watchlist(user = request.user.id)
+
 def login_view(request):
     if request.method == "POST":
 

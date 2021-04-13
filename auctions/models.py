@@ -19,3 +19,7 @@ class Listings(models.Model):
     categories = models.ForeignKey(Categories, on_delete=models.CASCADE, related_name="posts", null = True)
     image = models.URLField(max_length = 1000, null = True)
     bid = models.PositiveIntegerField()
+
+class Watchlist(models.Model):
+    user = models.IntegerField()
+    listings = models.ForeignKey("Listings", blank = True, related_name = "watchlist", on_delete=models.CASCADE)

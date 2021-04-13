@@ -18,5 +18,9 @@
             <input type="number" name="bid" id="bid" min="{{ min_bid }}" placeholder="minimum = {{ min_bid }}">
             <input type="submit" value="place bid">
         </form>
+        <form action="{% url 'watchlistadd' listing.id %}" method = "POST">
+            {% csrf_token %}
+            <input type="submit" value="Add to watchlist">
+        </form>
     </div>
 {% endblock %}
