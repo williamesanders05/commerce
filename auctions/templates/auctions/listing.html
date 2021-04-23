@@ -13,14 +13,19 @@
         <h4>Highestr Bidder: {{ listing.bidder }}</h4>
         <h3>${{ listing.bid }}</h3>
         <h4>Place a bid: </h4>
+        <h4>comments:</h4>
+        {% for comment in listing.comments %}
+        <h4>{{ listing.commenter }}: {{comment}}</h4>
+        {% endfor %}
         <form action="{% url 'listing' listing.id %}" method = "POST">
             {% csrf_token %}
             <input type="number" name="bid" id="bid" min="{{ min_bid }}" placeholder="minimum = {{ min_bid }}">
             <input type="submit" value="place bid">
         </form>
-        <form action="{% url 'watchlistadd' listing.id %}" method = "POST">
+        <form action="{% url 'comment' listing.id %}" method = "POST">
             {% csrf_token %}
-            <input type="submit" value="Add to watchlist">
+            <input type="text" name="comments" id="comments" class="form-control">
+            <input type="submit" value="post comment" class="btn btn-outline-dark">
         </form>
     </div>
 {% endblock %}
