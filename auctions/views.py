@@ -11,7 +11,7 @@ from .models import *
 
 def index(request):
     return render(request, "auctions/index.html", {
-        'listings': Listings.objects.all(),
+        'listings': Listings.objects.filter(close = False),
         'name': 'Active Listings'
     })
 
@@ -66,6 +66,23 @@ def comment(request, listing_id):
     if request.method == "POST":
         Listings.objects.filter(id=listing_id).update(comments = request.POST["comments"])
         return HttpResponseRedirect(reverse("listing", args=(listing_id,)))
+
+@login_required(login_url= "login")
+def close(request):
+    if request.method == "POST":
+        Listings.objects.filter(id=request.POST["listing_id"]).update(close = True)
+        return HttpResponseRedirect(reverse('index'))
+    return render(request, "auctions/close.html", {
+        'listings': Listings.objects.filter(close = True),
+        'name': "Closed Listings"
+    })
+
+@login_required(login_url= "login")
+def closedlisting(request, listing_id):
+    listing = Listings.objects.get(id=listing_id)
+    return render(request, "auctions/closedlisting.html", {
+        "listing": listing,
+    })
 
 def login_view(request):
     if request.method == "POST":

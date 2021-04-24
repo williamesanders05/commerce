@@ -26,6 +26,7 @@ class Listings(models.Model):
     image = models.URLField(max_length = 1000, null = True)
     bid = models.PositiveIntegerField()
     comments = models.ForeignKey(Comments, null= True, related_name = "posts", on_delete=models.CASCADE)
+    close = models.BooleanField(default=False)
 
 class Watchlist(models.Model):
     user = models.IntegerField()
