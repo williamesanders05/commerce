@@ -42,9 +42,11 @@ def listing(request, listing_id):
         Listings.objects.filter(id=listing_id).update(bidder = request.user.username)
         return HttpResponseRedirect(reverse("listing", args=(listing_id,)))
     listing = Listings.objects.get(id=listing_id)
+    comments = Comments.objects.filter(listing = listing_id)
     return render(request, "auctions/listing.html", {
         "listing": listing,
-        'min_bid': listing.bid + 1
+        'min_bid': listing.bid + 1,
+        'comments': comments,
     })
 
 @login_required(login_url= "login")
@@ -56,7 +58,7 @@ def categories(request):
 
 @login_required(login_url= "login")
 def category(request, category_id):
-    category = Listings.objects.filter(categories=category_id)
+    category = Listings.objects.filter(categories=category_id, close = False)
     return render(request, "auctions/category.html", {
         'listings': category,
     })
@@ -64,7 +66,12 @@ def category(request, category_id):
 @login_required(login_url= "login")
 def comment(request, listing_id):
     if request.method == "POST":
-        Listings.objects.filter(id=listing_id).update(comments = request.POST["comments"])
+        comment = Comments(
+            comment = request.POST["comment"],
+            commenter = request.user.username,
+            listing = listing_id
+        )
+        comment.save()
         return HttpResponseRedirect(reverse("listing", args=(listing_id,)))
 
 @login_required(login_url= "login")

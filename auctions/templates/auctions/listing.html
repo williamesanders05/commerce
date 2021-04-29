@@ -22,8 +22,8 @@
         <h3>${{ listing.bid }}</h3>
         <h4>Place a bid: </h4>
         <h4>comments:</h4>
-        {% for comment in listing.comments %}
-        <h4>{{ listing.commenter }}: {{comment}}</h4>
+        {% for comment in comments %}
+        <h5>{{ comment.commenter }}: {{comment}}</h5>
         {% endfor %}
         <form action="{% url 'listing' listing.id %}" method = "POST">
             {% csrf_token %}
@@ -32,7 +32,7 @@
         </form>
         <form action="{% url 'comment' listing.id %}" method = "POST">
             {% csrf_token %}
-            <input type="text" name="comments" id="comments" class="form-control">
+            <input type="text" name="comment" id="comment" class="form-control">
             <input type="submit" value="post comment" class="btn btn-outline-dark">
         </form>
     </div>
