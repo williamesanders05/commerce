@@ -91,6 +91,21 @@ def closedlisting(request, listing_id):
         "listing": listing,
     })
 
+@login_required(login_url= "login")
+def watchlist(request):
+    if request.method == "POST":
+        watchlist = Watchlist(
+            user = request.user.id,
+            listing = request.POST['watchid']
+        )
+        watchlist.save()
+        return HttpResponseRedirect(reverse('watchlist'))
+    user = request.user.id
+    return render(request, "auctions/watchlist", {
+        'watchlists': Watchlist.objects.filter(user=user),
+        'listings': Listings.object.filter(close = False)
+    })
+
 def login_view(request):
     if request.method == "POST":
 

@@ -11,6 +11,12 @@
     </form>
     {% endif %}
 
+    <form action="{% url 'watchlist' %}" method="post">
+        {% csrf_token %}
+        <input hidden type="number" name="watchid" id="watchid" value="{{ listing.id }}">
+        <input type="submit" value="add to watchlist" class="btn btn-outline-danger">
+    </form>
+
     <div class = img-wrapper2>
         <img src="{{listing.image}}" alt="image" width = "572" height = "429" class="item-img">
     </div>

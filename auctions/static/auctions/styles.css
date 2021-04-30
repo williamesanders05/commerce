@@ -21,6 +21,11 @@ body {
     height: 25rem;
 }
 
+.forwrap {
+    margin-left: auto;
+    margin-right: asuto;
+}
+
 .card {
     height: 25rem;
     width: 18rem;

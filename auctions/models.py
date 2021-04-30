@@ -4,6 +4,10 @@ from django.db import models
 class User(AbstractUser):
     pass
 
+class Watchlist(models.Model):
+    user = models.IntegerField()
+    listing  = models.IntegerField()
+
 class Categories(models.Model):
     category = models.CharField(max_length=32)
 
