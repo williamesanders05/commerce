@@ -5,8 +5,11 @@ class User(AbstractUser):
     pass
 
 class Watchlist(models.Model):
-    user = models.IntegerField()
-    listing  = models.IntegerField()
+    users = models.IntegerField(null=True)
+    listing  = models.IntegerField(null=True)
+
+    def __int__(self):
+        return self.listing
 
 class Categories(models.Model):
     category = models.CharField(max_length=32)

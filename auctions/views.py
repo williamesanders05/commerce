@@ -47,6 +47,7 @@ def listing(request, listing_id):
         "listing": listing,
         'min_bid': listing.bid + 1,
         'comments': comments,
+        'watchs': Watchlist.objects.filter(listing = listing_id)
     })
 
 @login_required(login_url= "login")
@@ -95,16 +96,26 @@ def closedlisting(request, listing_id):
 def watchlist(request):
     if request.method == "POST":
         watchlist = Watchlist(
-            user = request.user.id,
+            users = request.user.id,
             listing = request.POST['watchid']
         )
         watchlist.save()
         return HttpResponseRedirect(reverse('watchlist'))
-    user = request.user.id
-    return render(request, "auctions/watchlist", {
-        'watchlists': Watchlist.objects.filter(user=user),
-        'listings': Listings.object.filter(close = False)
+    users = request.user.id
+    return render(request, "auctions/watchlist.html", {
+        'watchlists': Watchlist.objects.filter(users=users),
+        'listings': Listings.objects.filter(close = False)
     })
+
+@login_required(login_url= "login")
+def remove(request):
+    if request.method == "POST":
+        watchlist = Watchlist. objects.filter(
+            users = request.user.id,
+            listing = request.POST['remid']
+        )
+        watchlist.delete()
+        return HttpResponseRedirect(reverse('watchlist'))
 
 def login_view(request):
     if request.method == "POST":

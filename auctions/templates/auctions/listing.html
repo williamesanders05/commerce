@@ -9,13 +9,25 @@
         <input hidden type="number" name="listing_id" id="listing_id" value="{{ listing.id }}">
         <input type="submit" value="close listing" class="btn btn-outline-danger">
     </form>
-    {% endif %}
+    {% else %}
 
+    {% for watch in watchs %}
+    {% if listing.id == watch.listing %}
+
+    <form action="{% url 'remove' %}" method="post">
+        {% csrf_token %}
+        <input hidden type="number" name="remid" id="remid" value="{{ listing.id }}">
+        <input type="submit" value="remove" class="btn btn-outline-danger">
+    </form>
+    {% endif %}
+    {% empty %}
     <form action="{% url 'watchlist' %}" method="post">
         {% csrf_token %}
         <input hidden type="number" name="watchid" id="watchid" value="{{ listing.id }}">
         <input type="submit" value="add to watchlist" class="btn btn-outline-danger">
     </form>
+    {% endfor %}
+    {% endif %}
 
     <div class = img-wrapper2>
         <img src="{{listing.image}}" alt="image" width = "572" height = "429" class="item-img">
